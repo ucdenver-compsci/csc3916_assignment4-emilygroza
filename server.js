@@ -88,14 +88,14 @@ router.post('/signin', function (req, res) {
 });
 
 router.route('/movies')
-    .get((req, res) => {
+    .get(authJwtController.isAuthenticated, (req, res) => {
         //implement
         var o = getJSONObjectForMovieRequirement(req);
         o.status = 200;
         o.message = "GET movies";
         res.json(o);
     })
-    .post((req, res) => {
+    .post(authJwtController.isAuthenticated, (req, res) => {
         //implement
         var o = getJSONObjectForMovieRequirement(req);
         o.status = 200;
@@ -111,7 +111,7 @@ router.route('/movies')
         o.message = "movie updated";
         res.json(o);
     })
-    .delete(authController.isAuthenticated, (req, res) => {
+    .delete(authJwtController.isAuthenticated, (req, res) => {
         //http delete method
         //requires basic auth
         //returns json object w status, msg, headers, query, env
@@ -120,21 +120,21 @@ router.route('/movies')
         o.message = "movie deleted";
         res.json(o);
     })
-    .all((req, res) => {
+    .all(authJwtController.isAuthenticated,(req, res) => {
         //any other http method
         //returns a msg stating that the http method is unsupported
         res.status(405).send({ message: 'HTTP method not supported.'})
     });
 
     router.route('/users')
-    .get((req, res) => {
+    .get(authJwtController.isAuthenticated, (req, res) => {
         //implement
         var o = getJSONObjectForMovieRequirement(req);
         o.status = 200;
         o.message = "GET user";
         res.json(o);
     })
-    .post((req, res) => {
+    .post(authJwtController.isAuthenticated, (req, res) => {
         //implement
         var o = getJSONObjectForMovieRequirement(req);
         o.status = 200;
@@ -159,14 +159,14 @@ router.route('/movies')
         o.message = "user deleted";
         res.json(o);
     })
-    .all((req, res) => {
+    .all(authJwtController.isAuthenticated, (req, res) => {
         //any other http method
         //returns a msg stating that the http method is unsupported
         res.status(405).send({ message: 'HTTP method not supported.'})
     });
 
     router.route('/reviews')
-    .get((req, res) => {
+    .get(authJwtController.isAuthenticated, (req, res) => {
         //implement
         var o = getJSONObjectForMovieRequirement(req);
         o.status = 200;
@@ -180,7 +180,7 @@ router.route('/movies')
         o.message = "reivew saved";
         res.json(o);
     })
-    .delete(authController.isAuthenticated, (req, res) => {
+    .delete(authJwtController.isAuthenticated, (req, res) => {
         //http delete method
         //requires basic auth
         //returns json object w status, msg, headers, query, env
@@ -189,7 +189,7 @@ router.route('/movies')
         o.message = "user deleted";
         res.json(o);
     })
-    .all((req, res) => {
+    .all(authJwtController.isAuthenticated, (req, res) => {
         //any other http method
         //returns a msg stating that the http method is unsupported
         res.status(405).send({ message: 'HTTP method not supported.'})
